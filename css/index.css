@@ -1,0 +1,47 @@
+/**********************************以下为全局样式****************************************/
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow:scroll;
+    overflow-x: hidden;
+    list-style-type: none;
+}
+body{
+    font-family:PingFangSC-Regular, Verdana, Arial, '微软雅黑','宋体', serif;
+    text-align:center;
+}
+/**********************************以下为****************************************/
+.main{
+    height: 500px;
+    width: 700px;
+    background: #999999;
+    margin: 0 auto;
+}
+#plotRegion{
+    height: 500px;
+    width: 200px;
+    background: #777777;
+    float: left;
+    text-align: left;
+}
+#rightopRegion{
+    height: 300px;
+    width: 500px;
+    background: #999999;
+    float: left;
+}
+#rightdownRegion{
+    height: 200px;
+    width: 500px;
+    background: #888888;
+    float: left;
+}
+.contP{
+    color: #ffffff;
+}
+#bar{
+    height: 5px;
+    width: 0%;
+    background: #ffff00;
+}
