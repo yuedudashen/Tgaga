@@ -1,29 +1,22 @@
 
 //加载开场元素
 function start(){
-    var main=document.getElementsByClassName("main")[0];
+    var rightTop=document.getElementById("rightopregion");
+    var rightDown=document.getElementById("rightdownregion");
     var startBt=createE("button","开始");
     var searechBt=createE("button","搜索");
-    var plotRegion=createE("div");
-    var rightopRegion=createE("div");
-    var rightdownRegion=createE("div");
     var bar=createE("div");
-
-    plotRegion.id='plotRegion';
-    rightopRegion.id="rightopRegion";
-    rightdownRegion.id="rightdownRegion";
     bar.id="bar";
     startBt.id="startBt";
     searechBt.id="searechBt";
     searechBt.style.display="none";
-    main.appendChild(plotRegion);
-    main.appendChild(rightopRegion);
-    main.appendChild(rightdownRegion);
-    rightopRegion.appendChild(startBt);
-    rightopRegion.appendChild(searechBt);
-    rightdownRegion.appendChild(bar);
+    rightTop.appendChild(startBt);
+    rightTop.appendChild(searechBt);
+    rightDown.appendChild(bar);
+    var fc=document.getElementsByClassName("fc");
+    fc[0].style.display="block";
 }
-
+var test=document.getElementById("test");
 //创造元素
 function createE(eName,eContent){
     var newElement=document.createElement(eName);
@@ -51,7 +44,7 @@ function timePlot(content,Time){
     setTimeout(function(){ insertPlot(content); },  Time);
 }
 function insertPlot(content){
-    var box=document.getElementById("plotRegion");
+    var box=document.getElementById("plotregion");
     var contP=createE("li",content);
     contP.className="contP";
     box.insertBefore(contP, box.childNodes[0]);
@@ -70,7 +63,7 @@ function startPlotRoll(){
 function item_down(min, max)
 {
     var item_amount=getRandomInt(min,max+1);
-    var down=document.getElementById("rightopRegion");
+    var down=document.getElementById("rightopregion");
     for (var i=0;i<item_amount; i++)
     {
         var itemName=item_food[getRandomInt(min-1,max-1)].name;
@@ -97,24 +90,31 @@ function bargo(func,time,a,b){
 }
 //捡起物品
 function pickUp(){
-    document.getElementById("rightdownRegion").appendChild(this);
+    document.getElementById("rightdownregion").appendChild(this);
 }
-
-window.onload=function () {
-    start();
-    //开始按钮点击事件
-    var startBt=document.getElementById("startBt");
-    startBt.onclick=function() {
-        startPlotRoll();
-        var searechBt=document.getElementById("searechBt");
-        setTimeout(function(){searechBt.style.display='';},4000);
-        this.style.display="none";
-    };
-    //搜索按钮点击事件
+//功能区标签页
+function fcRegionTag(){
+    var nav=document.getElementsByClassName("nav")[0];
+    var nav_a=nav.getElementsByTagName("a");
+    var fc=document.getElementsByClassName("fc");
+    for (var i=0;i<nav_a.length;i++){
+        nav_a[i].NO=i;
+        nav_a[i].onclick=function(){
+            for(var a=0;a<nav_a.length;a++){
+                fc[a].style.display="none";
+                nav_a[a].parentElement.className="";
+            }
+            fc[this.NO].style.display="block";
+            this.parentElement.className="active";
+        }
+    }
+}
+//搜索按钮点击事件
+function searchBtClick(){
     var searechBt=document.getElementById("searechBt");
     searechBt.onclick=function(){
         this.style.display="none";
-        var box=document.getElementById("rightopRegion");
+        var box=document.getElementById("rightopregion");
         var all_items=box.getElementsByClassName("items");
         var number=all_items.length;
         for (var i=0;i<number;i++)
@@ -122,8 +122,27 @@ window.onload=function () {
             box.removeChild(all_items[0]);
         }
         bargo(item_down,10,1,4);
-    }
-
+    };
+}
+//开始按钮点击事件
+function startBtClick(){
+    var startBt=document.getElementById("startBt");
+    startBt.onclick=function() {
+        startPlotRoll();
+        var searechBt=document.getElementById("searechBt");
+        setTimeout(function(){searechBt.style.display='';},4000);
+        this.style.display="none";
+    };
+}
+window.onload=function () {
+    start();
+    //开始按钮点击事件
+    startBtClick();
+    //搜索按钮点击事件
+    searchBtClick();
+    //功能区标签页
+    fcRegionTag()
 };
+
 
 
