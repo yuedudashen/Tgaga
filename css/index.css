@@ -8,14 +8,16 @@ html {
     list-style-type: none;
 }
 body{
-    font-family: PingFangSC-Regular, Verdana, Arial, '微软雅黑','宋体', serif;
+    font-family:'微软雅黑','宋体',serif;
     text-align:center;
 }
 /**********************************以下为****************************************/
 #main{
-    height: 500px;
-    width: 700px;
-    background: #999999;
+    border: 1px;
+    border-color: #2aabd2;
+    border-style: solid;
+    height: 502px;
+    width: 702px;
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -27,7 +29,7 @@ body{
 #plotregion{
     height: 200px;
     width: 200px;
-    background: #777777;
+    background: #cbefff;
     float: left;
     text-align: left;
 }
@@ -56,23 +58,49 @@ body{
     float: left;
 }
 
-#rightopregion{
-    height: 300px;
+#scene{
+    height: 330px;
     width: 500px;
-    background: #999999;
     float: left;
 }
-#rightdownregion{
-    height: 200px;
+#fcbtview{
+    height: 20px;
     width: 500px;
-    background: #888888;
+    float: left;
+    background: #2aabd2;
+}
+#Event{
+    height: 150px;
+    width: 500px;
+    background: #cbefff;
     float: left;
 }
 .contP{
-    color: #ffffff;
+    color: #000000;
 }
 #bar{
     height: 5px;
     width: 0%;
     background: #ffff00;
+}
+.items{
+    display: block;
+    font-size:16px;
+    width: 50px;
+    height: 25px;
+    margin-left: 10px;
+    float: left;
+}
+td{
+    text-align: left;
+}
+.btn-group{
+    height: 50px;
+}
+.btn-group>button{
+    font-size: 10px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0;
+    padding-top: 0;
 }
