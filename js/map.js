@@ -1,6 +1,50 @@
-var map1=[
+var place_lake=[
     {
-        mapname:"地点a",
+        mapname:"湖岸边",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"沙滩",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"湖心小岛",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"密处",
+        distance:1,
+        func:1
+    }
+];
+var place_Woods=[
+    {
+        mapname:"桦树林",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"林中小溪",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"洞穴",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"隐秘处",
+        distance:1,
+        func:1
+    }
+];
+var place_Landfill=[
+    {
+        mapname:"地点3a",
         distance:1,
         func:1
     },
@@ -19,4 +63,26 @@ var map1=[
         distance:1,
         func:1
     }
-]
+];
+var city_Suburbs=[
+    {
+        mapname:"地点4a",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"地点b",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"地点c",
+        distance:1,
+        func:1
+    },
+    {
+        mapname:"地点d",
+        distance:1,
+        func:1
+    }
+];

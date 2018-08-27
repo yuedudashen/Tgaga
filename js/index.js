@@ -10,7 +10,6 @@ function start(){
     bigMapUl.className="nav nav-tabs";
     bar.id="bar";
     scene.appendChild(bigMapUl);
-    scene.appendChild(createTable());
     fcbtview.appendChild(funcBtView());
     EventDiv.appendChild(bar);
     var fc=document.getElementsByClassName("fc");
@@ -19,6 +18,7 @@ function start(){
 //创造元素
 function createE(eName,eContent){
     var newElement=document.createElement(eName);
+    newElement.className='';
     if(eContent){
         if (eName=="button"){
             newElement.innerHTML=eContent;
@@ -111,34 +111,77 @@ function fcRegionTag(){
 
 //大地图
 function onloadMap(){
-    var bigMap=["地点A","B","C","D"];
+    var bigMap=["林地","美舍湖","垃圾场","西城近郊"];
     var bigMapUl=document.getElementById("bigMapUl");
     var mapWidth=100/bigMap.length;
     for (var i=0;i<bigMap.length;i++){
         var bigMapLi=createE("li");
         var bigMapA=createE("a",bigMap[i]);
+        bigMapA.href="#";
         bigMapLi.appendChild(bigMapA);
+        bigMapLi.className="bigMapLi";
         bigMapLi.style.width=mapWidth+"%";
+        bigMapLi.onclick=function(){
+            bigMapClick(this);
+            this.className="active bigMapLi";
+        };
         bigMapUl.appendChild(bigMapLi);
-
+    }
+}
+//地图切换
+function bigMapClick(ts){
+    var bigMapLi=document.getElementsByClassName("bigMapLi");
+    for (var i=0;i<bigMapLi.length;i++){
+        bigMapLi[i].className="bigMapLi";
+    }
+    var box=document.getElementById("scene");
+    switch (ts.childNodes[0].innerHTML){
+        case "美舍湖":
+            if(box.childNodes[1]){
+                box.removeChild(box.childNodes[1]);
+            }
+            box.appendChild(createSmallTable(place_lake));
+            break;
+        case "林地":
+            if(box.childNodes[1]){
+                box.removeChild(box.childNodes[1]);
+            }
+            box.appendChild(createSmallTable(place_Woods));
+            break;
+        case "垃圾场":
+            if(box.childNodes[1]){
+                box.removeChild(box.childNodes[1]);
+            }
+            box.appendChild(createSmallTable(place_Landfill));
+            break;
+        case "西城近郊":
+            if(box.childNodes[1]){
+                box.removeChild(box.childNodes[1]);
+            }
+            box.appendChild(createSmallTable(city_Suburbs));
+            break;
     }
 }
 //小地图
-function createTable(){
+function createSmallTable(city){
     var table=createE("table");
     var thead=createE("thead");
     var tbody=createE("tbody");
     var tr=createE("tr");
-    var headContent=["地名","距离","功能"];
+    var headContent=["地名","距离","事件"];
     for (var i=0;i<headContent.length;i++){
         tr.appendChild(createE("th",headContent[i]));
     }
-    var map=map1;
+    var map=city;
     for (var l=0;l<map.length;l++){
         var tr_body=createE("tr");
         var tdName=createE("td",map[l].mapname);
         var tddistance=createE("td",map[l].distance);
-        var tdfunc=createE("td",map[l].func);
+        var tdfunc=createE("td");
+        switch (map[l].func){
+            case 1:
+                tdfunc.appendChild(createE("button","搜集"))
+        }
         tr_body.appendChild(tdName);
         tr_body.appendChild(tddistance);
         tr_body.appendChild(tdfunc);
@@ -149,7 +192,6 @@ function createTable(){
     table.appendChild(tbody);
     table.className="table table-hover";
     return table
-
 }
 //功能按钮组
 function funcBtView(){
@@ -188,6 +230,7 @@ function btViewFunc(){
     }
 }
 window.onload=function () {
+    //加载开场元素
     start();
     //功能区标签页
     fcRegionTag();
