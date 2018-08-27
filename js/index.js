@@ -3,30 +3,19 @@
 function start(){
     var scene=document.getElementById("scene");
     var EventDiv=document.getElementById("Event");
-    var elsePage=document.getElementsByClassName("fc")[2];
     var fcbtview=document.getElementById("fcbtview");
     var bigMapUl=createE("ul");
-    var startBt=createE("button","开始");
-    var searechBt=createE("button","搜索");
     var bar=createE("div");
     bigMapUl.id="bigMapUl";
     bigMapUl.className="nav nav-tabs";
     bar.id="bar";
-    startBt.id="startBt";
-    searechBt.id="searechBt";
-    searechBt.style.display="none";
     scene.appendChild(bigMapUl);
-
     scene.appendChild(createTable());
     fcbtview.appendChild(funcBtView());
-    elsePage.appendChild(startBt);
-    elsePage.appendChild(searechBt);
     EventDiv.appendChild(bar);
     var fc=document.getElementsByClassName("fc");
     fc[0].style.display="block";
 }
-
-var test=document.getElementById("test");
 //创造元素
 function createE(eName,eContent){
     var newElement=document.createElement(eName);
@@ -119,38 +108,13 @@ function fcRegionTag(){
         }
     }
 }
-//搜索按钮点击事件
-function searchBtClick(){
-    var searechBt=document.getElementById("searechBt");
-    searechBt.onclick=function(){
-        this.style.display="none";
-        var EventDiv=document.getElementById("Event");
-        var all_items=EventDiv.getElementsByClassName("items");
-        var number=all_items.length;
-        for (var i=0;i<number;i++)
-        {
-            EventDiv.removeChild(all_items[0]);
-        }
-        bargo(item_down,10,1,4);
-    };
-}
-//开始按钮点击事件
-function startBtClick(){
-    var startBt=document.getElementById("startBt");
-    startBt.onclick=function() {
-        startPlotRoll();
-        var searechBt=document.getElementById("searechBt");
-        setTimeout(function(){searechBt.style.display='';},4000);
-        this.style.display="none";
-    };
-}
+
 //大地图
 function onloadMap(){
     var bigMap=["地点A","B","C","D"];
     var bigMapUl=document.getElementById("bigMapUl");
     var mapWidth=100/bigMap.length;
     for (var i=0;i<bigMap.length;i++){
-
         var bigMapLi=createE("li");
         var bigMapA=createE("a",bigMap[i]);
         bigMapLi.appendChild(bigMapA);
@@ -195,25 +159,40 @@ function funcBtView(){
     var btView=["开始","搜索","测试"];
     for(var i=0;i<btView.length;i++){
         var bt=createE("button",btView[i]);
-        bt.className="btn btn-default";---------
-
+        bt.addEventListener("click",btViewFunc)
+        bt.className="btn btn-default";
         btDiv.appendChild(bt)
     }
     return btDiv;
 }
 //功能按钮组事件
-
+function btViewFunc(){
+    switch (this.innerHTML){
+        case "开始":
+            startPlotRoll();
+            this.disabled="disabled";
+            break;
+        case "搜索":
+            var EventDiv=document.getElementById("Event");
+            var all_items=EventDiv.getElementsByClassName("items");
+            var number=all_items.length;
+            for (var i=0;i<number;i++)
+            {
+                EventDiv.removeChild(all_items[0]);
+            }
+            bargo(item_down,10,1,4);
+            break;
+        case"测试":
+            alert("testisok");
+            break
+    }
+}
 window.onload=function () {
     start();
-    //开始按钮点击事件
-    startBtClick();
-    //搜索按钮点击事件
-    searchBtClick();
     //功能区标签页
     fcRegionTag();
     //加载大地图
     onloadMap();
-
 };
 
 
