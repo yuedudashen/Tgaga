@@ -1,9 +1,8 @@
-
+var scene=document.getElementById("scene");
+var EventDiv=document.getElementById("Event");
+var fcbtview=document.getElementById("fcbtview");
 //加载开场元素
 function start(){
-    var scene=document.getElementById("scene");
-    var EventDiv=document.getElementById("Event");
-    var fcbtview=document.getElementById("fcbtview");
     var bigMapUl=createE("ul");
     var bar=createE("div");
     bigMapUl.id="bigMapUl";
@@ -48,7 +47,6 @@ function insertPlot(content){
     contP.className="contP";
     box.insertBefore(contP, box.childNodes[0]);
 }
-
 //开场剧情滚动
 function startPlotRoll(){
     var startPlot=["你好","欢迎来到","这个世界！！！"];
@@ -124,6 +122,10 @@ function onloadMap(){
         bigMapLi.onclick=function(){
             bigMapClick(this);
             this.className="active bigMapLi";
+            var allBt=scene.getElementsByTagName("button");
+            for(var i=0;i<allBt.length;i++){
+                allBt[i].addEventListener("click",tdFuncClick)
+            }
         };
         bigMapUl.appendChild(bigMapLi);
     }
@@ -177,7 +179,7 @@ function createSmallTable(city){
         var tr_body=createE("tr");
         var tdName=createE("td",map[l].mapname);
         var tddistance=createE("td",map[l].distance);
-        var tdfunc=tdfuncclick(map[l].func);
+        var tdfunc=tdFunconLoad(map[l]);
         tr_body.appendChild(tdName);
         tr_body.appendChild(tddistance);
         tr_body.appendChild(tdfunc);
@@ -190,19 +192,37 @@ function createSmallTable(city){
     return table
 }
 //小地图功能按钮
-//搜索：1，收集：2，探索：3，
-function tdfuncclick(funcView){
+//1:侦查；2：进入
+function tdFunconLoad(funcView){
     var thistd=createE("td");
-    var bt_search=createE("button","搜索");
-    var bt_collect=createE("button","收集")
-    switch (funcView){
+    thistd.mapdate=funcView;
+    var bt_inv=createE("button","侦查");
+    var bt_in=createE("button","进入");
+
+    switch (funcView.func){
         case 1:
-            thistd.appendChild(bt_search);
+            thistd.appendChild(bt_inv);
+
             break;
-        case 3:
-            thistd.appendChild(bt_search);
-            thistd.appendChild(bt_collect);
+        case 2:
+            thistd.appendChild(bt_in);
+            break;
     }
+    return thistd;
+}
+//小地图功能事件触发
+function tdFuncClick(){
+    alert(this.parentElement.mapdate.mapname);
+    switch (this.innerHTML){
+        case "进入":
+            scene.removeChild(scene.getElementsByTagName("table")[0]);
+            inRoom(this.parentElement.mapdate)
+    }
+}
+//进入room
+function inRoom(place){
+    var room=place.room;
+
 }
 //功能按钮组
 function funcBtView(){
