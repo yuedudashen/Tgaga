@@ -24,7 +24,7 @@ var place_Woods=[
     {
         mapname:"桦树林",
         distance:1,
-        func:1
+        func:3
     },
     {
         mapname:"林中小溪",

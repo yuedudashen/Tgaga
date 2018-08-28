@@ -177,11 +177,7 @@ function createSmallTable(city){
         var tr_body=createE("tr");
         var tdName=createE("td",map[l].mapname);
         var tddistance=createE("td",map[l].distance);
-        var tdfunc=createE("td");
-        switch (map[l].func){
-            case 1:
-                tdfunc.appendChild(createE("button","搜集"))
-        }
+        var tdfunc=tdfuncclick(map[l].func);
         tr_body.appendChild(tdName);
         tr_body.appendChild(tddistance);
         tr_body.appendChild(tdfunc);
@@ -193,6 +189,21 @@ function createSmallTable(city){
     table.className="table table-hover";
     return table
 }
+//小地图功能按钮
+//搜索：1，收集：2，探索：3，
+function tdfuncclick(funcView){
+    var thistd=createE("td");
+    var bt_search=createE("button","搜索");
+    var bt_collect=createE("button","收集")
+    switch (funcView){
+        case 1:
+            thistd.appendChild(bt_search);
+            break;
+        case 3:
+            thistd.appendChild(bt_search);
+            thistd.appendChild(bt_collect);
+    }
+}
 //功能按钮组
 function funcBtView(){
     var btDiv=createE("div");
@@ -201,7 +212,7 @@ function funcBtView(){
     var btView=["开始","搜索","测试"];
     for(var i=0;i<btView.length;i++){
         var bt=createE("button",btView[i]);
-        bt.addEventListener("click",btViewFunc)
+        bt.addEventListener("click",btViewFunc);
         bt.className="btn btn-default";
         btDiv.appendChild(bt)
     }
