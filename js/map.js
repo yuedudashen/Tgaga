@@ -24,7 +24,8 @@ var place_Woods=[
     {
         mapname:"桦树林",
         distance:1,
-        func:3
+        func:2,
+        room:room_hsl
     },
     {
         mapname:"林中小溪",
